@@ -1,0 +1,95 @@
+<div class="my-container">
+    <div class="product-container">
+        <div class="product-list" >
+            <h2>Stock Items</h2>
+            <div class="product" *ngFor="let product of products; let i = index;">
+                <div class="product-info">
+                    <h2>{{product.name}}</h2>
+                    <small>{{product.price | currency: 'R'}}</small>
+                </div>
+                <div class="product-quantity">{{product.quantity}}</div>
+            </div>
+        </div>
+        <div class="card-bottom">
+            <button class="btn btn-lg btn-primary" (click)="open(mymodal)">Add Item</button>
+            <button class="btn btn-lg btn-warning" (click)="open(removeModal)">Remove Items</button>
+        </div>
+        <div> 
+            <ng-template #mymodal let-modal>
+            <!-- <div class="modal-header">
+                <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <form (submit)="addProduct()" class="product-form">
+                    <h2>Add Item</h2>
+                    <input
+                    type="text"
+                    name="productName"
+                    placeholder="Enter Name..."
+                    [(ngModel)]="productName"
+                    />
+                    <input
+                    type="number"
+                    name="productQuantity"
+                    placeholder="Enter Price..."
+                    [(ngModel)]="productPrice"
+                    />
+                    <input
+                    type="number"
+                    name="productPrice"
+                    placeholder="Enter Quantity..."
+                    [(ngModel)]="productQuantity"
+                    />
+                    <input type="submit" value="Add Product" class="product-submit">
+                    <input value="Cancel" class="product-cancel-btn" (click)="modal.dismiss()">
+                </form>
+            </div>
+            </ng-template>
+        </div>
+
+        <div> 
+            
+            
+            <ng-template #removeModal let-modal>
+            <!-- <div class="modal-header">
+                <button type="button" class="close btn" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div> -->
+            <div class="modal-body">
+                <form (submit)="updateInventory()" class="product-form">
+                    <h2>Remove Stock</h2>
+                    <select class="custom-select" [ngModel]="selectedProduct" (ngModelChange)="changeItem($event)" name="selectedItem">
+                        <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
+                     </select>
+                    <input
+                    type="number"
+                    name="productQuantity"
+                    placeholder="Enter Qunatity Bought..."
+                    [(ngModel)]="selectedProduct.quantity"
+                    />
+                    <input
+                    type="number"
+                    name="productPrice"
+                    placeholder="Enter Qunatity Bought..."
+                    [(ngModel)]="selectedProduct.price"
+                    disabled
+                    />     
+                    <input
+                    type="email"
+                    name="customerEmail"
+                    placeholder="Enter Customer Email..."
+                    [(ngModel)]="selectedProduct.email"
+                    />
+                    <input type="submit" value="Remove Stock" class="product-submit">
+                    <input value="Cancel" class="product-cancel-btn" (click)="modal.dismiss()">
+                </form>
+            </div>
+            </ng-template>
+        </div>
+
+    </div>
+    
+</div>
